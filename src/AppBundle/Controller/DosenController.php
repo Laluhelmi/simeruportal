@@ -18,6 +18,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 class DosenController extends Controller
 {
   private $session;
+  private $idsession;
   public function __construct()
   {
         $this->session = new Session();
