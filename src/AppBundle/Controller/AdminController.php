@@ -7,10 +7,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Akun;
 use AppBundle\Entity\Dosen;
+use AppBundle\Entity\ProgramStudi;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Session\Session;
-
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -83,20 +84,25 @@ class AdminController extends Controller
      * @Route("/form",name="blog")
      */
      public function tes(Request $request){
+       $prodi = $this->getDoctrine()->getRepository('AppBundle:ProgramStudi')
+                     ->findAll();
+        foreach ($prodi as $value) {
+            $pilihan[$value->getNamaProdi()] = $value->getIdprogramStudi();
+        }
         $akun = new Akun();
-
+        $akun->setNama('Tulis nama anda');
+        $akun->setPassword('Tulis password Anda');
         $form = $this->createFormBuilder($akun)
-                    ->add('nama',TextType::class,array('attr'=> array('placeholder'=>'nama','class'=>
-                  'form-control','value'=>'hores')))
-                    ->add('simpan', SubmitType::class,array('label' => 'Create Post',))
-                    ->getForm();
-                    $form->handleRequest($request);
-                    if ($form->isSubmitted() && $form->isValid()) {
-                        $task = $form->getData();
-                        return $this->redirectToRoute('task_success');
-    }
-        return $this->render('login.html.twig',array('form' => $form->createView(),
-              'page'=>'beranda'));
+                ->add('password', TextType::class)
+                ->add('save', SubmitType::class, array('label' => 'Create Post'))
+                ->add('nama',ChoiceType::class, array(
+                      'choices' => array(
+                        $pilihan
+                      )))->getForm();
+
+            return $this->render('login.html.twig', array(
+                'form' => $form->createView(),
+            ));
      }
         /**
         *@Method({"GET"})

@@ -1,0 +1,26 @@
+{# app/Resources/views/default/new.html.twig #}
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <!-- styles -->
+        <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+        <style media="screen">
+          .tes{
+            background-color: blue;
+          }
+        </style>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+      <div class="container">
+          <h3>
+          {{ form_label(form.nama) }}</h3>
+          {{ form_errors(form.nama) }}
+          {{ form_widget(form.nama,{'attr':{'class':'tes'}}) }}<br>
+          {{form_widget(form.save)}}
+      </div>
+</body>
+</html>
