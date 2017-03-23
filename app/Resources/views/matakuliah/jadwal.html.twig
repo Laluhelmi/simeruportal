@@ -1,0 +1,287 @@
+{% extends 'admin/master.html.twig' %}
+{% block content %}
+<ol class="breadcrumb">
+  <li class="active">Jadwal Kuliah</li>
+</ol>
+<div class="content-box-large">
+  <div class="panel-body">
+<div class="form-group">
+<div class="col-sm-4">
+<select  class="form-control" name="dosen" id="fakultas">
+<option value="">Pilih Fakultas</option>
+{% for f in fakultas %}
+<option value="{{f.getidFakultas()}}">{{f.getNamaFakultas()}}</option>
+{% endfor %}
+</select>
+</div>
+<div class="form-group">
+<div class="col-sm-4">
+<select class="form-control"name="prodi" id="prodi">
+<option value="">Pilih Prodi</option>
+</select>
+</div>
+  <button type="submit" id="cari" class="btn btn-primary">Cari</button>
+</div>
+<table class="table" id="isidata">
+  <thead>
+    <th>Hari</th>
+    <th>Kode</th>
+    <th>Matakuliah</th>
+    <th>Kelas</th>
+    <th>Sks</th>
+    <th>Jam</th>
+    <th>Semester</th>
+    <th>Dosen</th>
+    <th>Ruang</th>
+  </thead>
+  <tbody>
+  <tr id="nodata"><td>Belum Ada Data</td></tr>
+  </tbody>
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#fakultas").change(function(){
+    var fak = $(this).val();
+    var prodi = document.getElementById('prodi');
+    $.ajax({
+          url: "getprodi/"+fak,
+          }).done(function(data) {
+            var hasil = JSON.parse(data);
+            $("#prodi option").remove();
+            for(var i=0;i<hasil.length;i++){
+            $("#prodi").append('<option value="'+hasil[i].idprogramStudi+'">'+hasil[i].namaProdi+'</option>');
+            }
+          });
+    });
+    //tambah isi tabel
+    $("#cari").click(function(){
+    var prodi = $("#prodi").val();
+    $("#isidata tbody tr").remove();
+    $.ajax({url: "getjadwal/"+prodi}).done(function (hasil) {
+        var data = JSON.parse(hasil);
+        var hj = 0;
+        for (var i = 0; i < data.length; i++) {
+            if(data[i].hari == "senin"){
+              var baris;
+              if(hj == 0){
+                var hari = "<td>"+data[i].hari+"</td>";
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var matkul = "<td>"+data[i].matakuliahmatkul.namaMatkul+"</td>";
+                var kelas = "<td>"+data[i].kelas+"</td>";
+                var sks = "<td>"+data[i].matakuliahmatkul.sks+"</td>";
+                var jam = "<td>"+data[i].jam+"</td>";
+                var sem = "<td>"+data[i].matakuliahmatkul.semester+"</td>";
+                var dosen = "<td>"+data[i].dosenNip.nama+"</td>";
+                var ruang = "<td>"+data[i].ruangruang.namaruang+"</td>";
+                baris = "<tr>"+hari+kode+matkul+kelas+sks+jam+sem+dosen+ruang+"</tr>";
+              }else{
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var matkul = "<td>"+data[i].matakuliahmatkul.namaMatkul+"</td>";
+                var kelas = "<td>"+data[i].kelas+"</td>";
+                var sks = "<td>"+data[i].matakuliahmatkul.sks+"</td>";
+                var jam = "<td>"+data[i].jam+"</td>";
+                var sem = "<td>"+data[i].matakuliahmatkul.semester+"</td>";
+                var dosen = "<td>"+data[i].dosenNip.nama+"</td>";
+                var ruang = "<td>"+data[i].ruangruang.namaruang+"</td>";
+                baris = "<tr><td></td>"+kode+matkul+kelas+sks+jam+sem+dosen+ruang+"</tr>";
+              }
+              $("#isidata tbody").append(baris);
+              hj++;
+            }
+        }
+        var hj = 0;
+        for (var i = 0; i < data.length; i++) {
+            if(data[i].hari == "selasa"){
+              var baris;
+              if(hj == 0){
+                var hari = "<td>"+data[i].hari+"</td>";
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var matkul = "<td>"+data[i].matakuliahmatkul.namaMatkul+"</td>";
+                var kelas = "<td>"+data[i].kelas+"</td>";
+                var sks = "<td>"+data[i].matakuliahmatkul.sks+"</td>";
+                var jam = "<td>"+data[i].jam+"</td>";
+                var sem = "<td>"+data[i].matakuliahmatkul.semester+"</td>";
+                var dosen = "<td>"+data[i].dosenNip.nama+"</td>";
+                var ruang = "<td>"+data[i].ruangruang.namaruang+"</td>";
+                baris = "<tr>"+hari+kode+matkul+kelas+sks+jam+sem+dosen+ruang+"</tr>";
+              }else{
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var matkul = "<td>"+data[i].matakuliahmatkul.namaMatkul+"</td>";
+                var kelas = "<td>"+data[i].kelas+"</td>";
+                var sks = "<td>"+data[i].matakuliahmatkul.sks+"</td>";
+                var jam = "<td>"+data[i].jam+"</td>";
+                var sem = "<td>"+data[i].matakuliahmatkul.semester+"</td>";
+                var dosen = "<td>"+data[i].dosenNip.nama+"</td>";
+                var ruang = "<td>"+data[i].ruangruang.namaruang+"</td>";
+                baris = "<tr><td></td>"+kode+matkul+kelas+sks+jam+sem+dosen+ruang+"</tr>";
+              }
+              $("#isidata tbody").append(baris);
+              hj++;
+            }
+        }
+        var hj = 0;
+        for (var i = 0; i < data.length; i++) {
+            if(data[i].hari == "rabu"){
+              var baris;
+              if(hj == 0){
+                var hari = "<td>"+data[i].hari+"</td>";
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var matkul = "<td>"+data[i].matakuliahmatkul.namaMatkul+"</td>";
+                var kelas = "<td>"+data[i].kelas+"</td>";
+                var sks = "<td>"+data[i].matakuliahmatkul.sks+"</td>";
+                var jam = "<td>"+data[i].jam+"</td>";
+                var sem = "<td>"+data[i].matakuliahmatkul.semester+"</td>";
+                var dosen = "<td>"+data[i].dosenNip.nama+"</td>";
+                var ruang = "<td>"+data[i].ruangruang.namaruang+"</td>";
+                baris = "<tr>"+hari+kode+matkul+kelas+sks+jam+sem+dosen+ruang+"</tr>";
+              }else{
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var matkul = "<td>"+data[i].matakuliahmatkul.namaMatkul+"</td>";
+                var kelas = "<td>"+data[i].kelas+"</td>";
+                var sks = "<td>"+data[i].matakuliahmatkul.sks+"</td>";
+                var jam = "<td>"+data[i].jam+"</td>";
+                var sem = "<td>"+data[i].matakuliahmatkul.semester+"</td>";
+                var dosen = "<td>"+data[i].dosenNip.nama+"</td>";
+                var ruang = "<td>"+data[i].ruangruang.namaruang+"</td>";
+                baris = "<tr><td></td>"+kode+matkul+kelas+sks+jam+sem+dosen+ruang+"</tr>";
+              }
+              $("#isidata tbody").append(baris);
+              hj++;
+            }
+        }
+        var hj = 0;
+        for (var i = 0; i < data.length; i++) {
+            if(data[i].hari == "kamis"){
+              var baris;
+              if(hj == 0){
+                var hari = "<td>"+data[i].hari+"</td>";
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var matkul = "<td>"+data[i].matakuliahmatkul.namaMatkul+"</td>";
+                var kelas = "<td>"+data[i].kelas+"</td>";
+                var sks = "<td>"+data[i].matakuliahmatkul.sks+"</td>";
+                var jam = "<td>"+data[i].jam+"</td>";
+                var sem = "<td>"+data[i].matakuliahmatkul.semester+"</td>";
+                var dosen = "<td>"+data[i].dosenNip.nama+"</td>";
+                var ruang = "<td>"+data[i].ruangruang.namaruang+"</td>";
+                baris = "<tr>"+hari+kode+matkul+kelas+sks+jam+sem+dosen+ruang+"</tr>";
+              }else{
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var matkul = "<td>"+data[i].matakuliahmatkul.namaMatkul+"</td>";
+                var kelas = "<td>"+data[i].kelas+"</td>";
+                var sks = "<td>"+data[i].matakuliahmatkul.sks+"</td>";
+                var jam = "<td>"+data[i].jam+"</td>";
+                var sem = "<td>"+data[i].matakuliahmatkul.semester+"</td>";
+                var dosen = "<td>"+data[i].dosenNip.nama+"</td>";
+                var ruang = "<td>"+data[i].ruangruang.namaruang+"</td>";
+                baris = "<tr><td></td>"+kode+matkul+kelas+sks+jam+sem+dosen+ruang+"</tr>";
+              }
+              $("#isidata tbody").append(baris);
+              hj++;
+            }
+        }
+        var hj = 0;
+        for (var i = 0; i < data.length; i++) {
+            if(data[i].hari == "jumat"){
+              var baris;
+              if(hj == 0){
+                var hari = "<td>"+data[i].hari+"</td>";
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var matkul = "<td>"+data[i].matakuliahmatkul.namaMatkul+"</td>";
+                var kelas = "<td>"+data[i].kelas+"</td>";
+                var sks = "<td>"+data[i].matakuliahmatkul.sks+"</td>";
+                var jam = "<td>"+data[i].jam+"</td>";
+                var sem = "<td>"+data[i].matakuliahmatkul.semester+"</td>";
+                var dosen = "<td>"+data[i].dosenNip.nama+"</td>";
+                var ruang = "<td>"+data[i].ruangruang.namaruang+"</td>";
+                baris = "<tr>"+hari+kode+matkul+kelas+sks+jam+sem+dosen+ruang+"</tr>";
+              }else{
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var matkul = "<td>"+data[i].matakuliahmatkul.namaMatkul+"</td>";
+                var kelas = "<td>"+data[i].kelas+"</td>";
+                var sks = "<td>"+data[i].matakuliahmatkul.sks+"</td>";
+                var jam = "<td>"+data[i].jam+"</td>";
+                var sem = "<td>"+data[i].matakuliahmatkul.semester+"</td>";
+                var dosen = "<td>"+data[i].dosenNip.nama+"</td>";
+                var ruang = "<td>"+data[i].ruangruang.namaruang+"</td>";
+                baris = "<tr><td></td>"+kode+matkul+kelas+sks+jam+sem+dosen+ruang+"</tr>";
+              }
+              $("#isidata tbody").append(baris);
+              hj++;
+            }
+        }
+        var hj = 0;
+        for (var i = 0; i < data.length; i++) {
+            if(data[i].hari == "sabtu"){
+              var baris;
+              if(hj == 0){
+                var hari = "<td>"+data[i].hari+"</td>";
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var matkul = "<td>"+data[i].matakuliahmatkul.namaMatkul+"</td>";
+                var kelas = "<td>"+data[i].kelas+"</td>";
+                var sks = "<td>"+data[i].matakuliahmatkul.sks+"</td>";
+                var jam = "<td>"+data[i].jam+"</td>";
+                var sem = "<td>"+data[i].matakuliahmatkul.semester+"</td>";
+                var dosen = "<td>"+data[i].dosenNip.nama+"</td>";
+                var ruang = "<td>"+data[i].ruangruang.namaruang+"</td>";
+                baris = "<tr>"+hari+kode+matkul+kelas+sks+jam+sem+dosen+ruang+"</tr>";
+              }else{
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var matkul = "<td>"+data[i].matakuliahmatkul.namaMatkul+"</td>";
+                var kelas = "<td>"+data[i].kelas+"</td>";
+                var sks = "<td>"+data[i].matakuliahmatkul.sks+"</td>";
+                var jam = "<td>"+data[i].jam+"</td>";
+                var sem = "<td>"+data[i].matakuliahmatkul.semester+"</td>";
+                var dosen = "<td>"+data[i].dosenNip.nama+"</td>";
+                var ruang = "<td>"+data[i].ruangruang.namaruang+"</td>";
+                baris = "<tr><td></td>"+kode+matkul+kelas+sks+jam+sem+dosen+ruang+"</tr>";
+              }
+              $("#isidata tbody").append(baris);
+              hj++;
+            }
+        }
+        var hj = 0;
+        for (var i = 0; i < data.length; i++) {
+            if(data[i].hari == "minggu"){
+              var baris;
+              if(hj == 0){
+                var hari = "<td>"+data[i].hari+"</td>";
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var matkul = "<td>"+data[i].matakuliahmatkul.namaMatkul+"</td>";
+                var kelas = "<td>"+data[i].kelas+"</td>";
+                var sks = "<td>"+data[i].matakuliahmatkul.sks+"</td>";
+                var jam = "<td>"+data[i].jam+"</td>";
+                var sem = "<td>"+data[i].matakuliahmatkul.semester+"</td>";
+                var dosen = "<td>"+data[i].dosenNip.nama+"</td>";
+                var ruang = "<td>"+data[i].ruangruang.namaruang+"</td>";
+                baris = "<tr>"+hari+kode+matkul+kelas+sks+jam+sem+dosen+ruang+"</tr>";
+              }else{
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var kode = "<td>"+data[i].idajar+"</td>";
+                var matkul = "<td>"+data[i].matakuliahmatkul.namaMatkul+"</td>";
+                var kelas = "<td>"+data[i].kelas+"</td>";
+                var sks = "<td>"+data[i].matakuliahmatkul.sks+"</td>";
+                var jam = "<td>"+data[i].jam+"</td>";
+                var sem = "<td>"+data[i].matakuliahmatkul.semester+"</td>";
+                var dosen = "<td>"+data[i].dosenNip.nama+"</td>";
+                var ruang = "<td>"+data[i].ruangruang.namaruang+"</td>";
+                baris = "<tr><td></td>"+kode+matkul+kelas+sks+jam+sem+dosen+ruang+"</tr>";
+              }
+              $("#isidata tbody").append(baris);
+              hj++;
+            }
+        }
+      });
+
+    });
+});
+</script>
+</div>
+</div>
+{% endblock %}

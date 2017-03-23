@@ -1,0 +1,12 @@
+<div class="" style="background-color: #ff0">
+<ul>
+{% for error in errors %}
+<li>{{ error.message }}</li>
+{% endfor %}
+</ul>
+  <form class="" action="{{path('dosen_tambah')}}" method="post">
+    <input type="text" name="nip" value="{{dosen.getNip()}}"><br>
+    <input type="text" >
+    <input type="submit" name="" value="simpan">
+  </form>
+</div>

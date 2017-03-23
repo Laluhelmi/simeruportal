@@ -1,0 +1,194 @@
+{% extends 'admin/master.html.twig'%}
+{% block content %}
+<ol class="breadcrumb">
+  <li class="active">Jadwal Dosen</li>
+</ol>
+<div class="content-box-large">
+<form action='{{ path('dosen_jadwal')}}'>
+<select class="selectpicker" name="dosen">
+        <option value=''>Pilih Dosen</option>
+          {% for f in dosen %}
+          <option
+          {% if selected == f.getNip()%}
+          selected
+          {% endif %}
+          value="{{f.getNip()}}">
+           {{f.getNama()}}
+           </option>
+          {% endfor %}
+          </select>
+          <button type="submit" class="btn btn-primary">cari</button>
+</form>
+{% if jadwal != null%}
+<table class="table">
+  <thead>
+    <th>Hari</th>
+    <th>Kode</th>
+    <th>Matakuliah</th>
+    <th>Program Studi</th>
+    <th>Kelas</th>
+    <th>Sks</th>
+    <th>Jam</th>
+    <th>Ruang</th>
+  </thead>
+  <tbody>
+  {% set hj = 0 %}
+  {% for j in jadwal%}
+  {% if j.getHari() == 'senin' %}
+    {% if hj == 0 %}
+    <tr>
+    <td style="background-color: aquamarine">{{j.getHari()}}</td>
+    {% else %}
+    <tr>
+    <td></td>
+    {% endif %}
+    <td>{{j.getIdajar()}}</td>
+    <td>{{j.getMatakuliahmatkul().getNamaMatkul()}}</td>
+    <td>{{ j.getMatakuliahmatkul().getProgramStudiprogramStudi().getNamaProdi() }}</td>
+    <td>{{j.getKelas()}}</td>
+    <td>{{j.getMatakuliahmatkul().getSks()}}</td>
+    <td>{{j.getJam()}}</td>
+    <td>{{j.getRuangruang().getNamaruang()}}</td>
+  </tr>
+  {% set hj=hj+1 %}
+  {% endif %}
+  {% endfor %}
+
+    {% set hj = 0 %}
+    {% for j in jadwal%}
+    {% if j.getHari() == 'selasa' %}
+      {% if hj == 0%}
+      <tr>
+      <td style="background-color: aquamarine">{{j.getHari()}}</td>
+      {% else %}
+      <tr>
+      <td></td>
+      {% endif %}
+      <td>{{j.getIdajar()}}</td>
+      <td>{{j.getMatakuliahmatkul().getNamaMatkul()}}</td>
+      <td>{{ j.getMatakuliahmatkul().getProgramStudiprogramStudi().getNamaProdi() }}</td>
+      <td>{{j.getKelas()}}</td>
+      <td>{{j.getMatakuliahmatkul().getSks()}}</td>
+      <td>{{j.getJam()}}</td>
+      <td>{{j.getRuangruang().getNamaruang()}}</td>
+    </tr>
+    {% set hj=hj+1 %}
+    {% endif %}
+    {% endfor %}
+
+    {% set hj = 0 %}
+    {% for j in jadwal%}
+    {% if j.getHari() == 'rabu' %}
+      {% if hj == 0%}
+      <tr>
+      <td style="background-color: aquamarine">{{j.getHari()}}</td>
+      {% else %}
+      <tr>
+      <td></td>
+      {% endif %}
+      <td>{{j.getIdajar()}}</td>
+      <td>{{j.getMatakuliahmatkul().getNamaMatkul()}}</td>
+      <td>{{ j.getMatakuliahmatkul().getProgramStudiprogramStudi().getNamaProdi() }}</td>
+      <td>{{j.getKelas()}}</td>
+      <td>{{j.getMatakuliahmatkul().getSks()}}</td>
+      <td>{{j.getJam()}}</td>
+      <td>{{j.getRuangruang().getNamaruang()}}</td>
+    </tr>
+    {% set hj=hj+1 %}
+    {% endif %}
+    {% endfor %}
+
+    {% set hj = 0 %}
+    {% for j in jadwal%}
+    {% if j.getHari() == 'kamis' %}
+      {% if hj == 0%}
+      <tr>
+      <td style="background-color: aquamarine">{{j.getHari()}}</td>
+      {% else %}
+      <tr>
+      <td></td>
+      {% endif %}
+      <td>{{j.getIdajar()}}</td>
+      <td>{{j.getMatakuliahmatkul().getNamaMatkul()}}</td>
+      <td>{{ j.getMatakuliahmatkul().getProgramStudiprogramStudi().getNamaProdi() }}</td>
+      <td>{{j.getKelas()}}</td>
+      <td>{{j.getMatakuliahmatkul().getSks()}}</td>
+      <td>{{j.getJam()}}</td>
+      <td>{{j.getRuangruang().getNamaruang()}}</td>
+    </tr>
+    {% set hj=hj+1 %}
+    {% endif %}
+    {% endfor %}
+
+    {% set hj = 0 %}
+    {% for j in jadwal%}
+    {% if j.getHari() == 'jumat' %}
+      {% if hj == 0%}
+      <tr>
+      <td style="background-color: aquamarine">{{j.getHari()}}</td>
+      {% else %}
+      <tr>
+      <td></td>
+      {% endif %}
+      <td>{{j.getIdajar()}}</td>
+      <td>{{j.getMatakuliahmatkul().getNamaMatkul()}}</td>
+      <td>{{ j.getMatakuliahmatkul().getProgramStudiprogramStudi().getNamaProdi() }}</td>
+      <td>{{j.getKelas()}}</td>
+      <td>{{j.getMatakuliahmatkul().getSks()}}</td>
+      <td>{{j.getJam()}}</td>
+      <td>{{j.getRuangruang().getNamaruang()}}</td>
+    </tr>
+    {% set hj=hj+1 %}
+    {% endif %}
+    {% endfor %}
+
+    {% set hj = 0 %}
+    {% for j in jadwal%}
+    {% if j.getHari() == 'sabtu' %}
+      {% if hj == 0%}
+      <tr>
+      <td style="background-color: aquamarine">{{j.getHari()}}</td>
+      {% else %}
+      <tr>
+      <td></td>
+      {% endif %}
+      <td>{{j.getIdajar()}}</td>
+      <td>{{j.getMatakuliahmatkul().getNamaMatkul()}}</td>
+      <td>{{ j.getMatakuliahmatkul().getProgramStudiprogramStudi().getNamaProdi() }}</td>
+      <td>{{j.getKelas()}}</td>
+      <td>{{j.getMatakuliahmatkul().getSks()}}</td>
+      <td>{{j.getJam()}}</td>
+      <td>{{j.getRuangruang().getNamaruang()}}</td>
+    </tr>
+    {% set hj=hj+1 %}
+    {% endif %}
+    {% endfor %}
+
+    {% set hj = 0 %}
+    {% for j in jadwal%}
+    {% if j.getHari() == 'minggu' %}
+      {% if hj == 0%}
+      <tr>
+      <td style="background-color: aquamarine">{{j.getHari()}}</td>
+      {% else %}
+      <tr>
+      <td></td>
+      {% endif %}
+      <td>{{j.getIdajar()}}</td>
+      <td>{{j.getMatakuliahmatkul().getNamaMatkul()}}</td>
+      <td>{{ j.getMatakuliahmatkul().getProgramStudiprogramStudi().getNamaProdi() }}</td>
+      <td>{{j.getKelas()}}</td>
+      <td>{{j.getMatakuliahmatkul().getSks()}}</td>
+      <td>{{j.getJam()}}</td>
+      <td>{{j.getRuangruang().getNamaruang()}}</td>
+    </tr>
+    {% set hj=hj+1 %}
+    {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endif %}
+          </div>
+
+{% endblock %}

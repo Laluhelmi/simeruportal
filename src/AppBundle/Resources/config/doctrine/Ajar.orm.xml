@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Ajar" table="ajar">
+    <indexes>
+      <index name="fk_dosen_has_matakuliah_matakuliah1_idx" columns="matakuliah_idmatkul"/>
+      <index name="fk_dosen_has_matakuliah_dosen1_idx" columns="dosen_nip"/>
+      <index name="fk_ajar_ruang1_idx" columns="ruang_idruang"/>
+    </indexes>
+    <id name="idajar" type="integer" column="idajar">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="kelas" type="string" column="kelas" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="jam" type="string" column="jam" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="hari" type="string" column="hari" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="matakuliahmatkul" target-entity="Matakuliah" fetch="LAZY">
+      <join-columns>
+        <join-column name="matakuliah_idmatkul" referenced-column-name="idmatkul"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="dosenNip" target-entity="Dosen" fetch="LAZY">
+      <join-columns>
+        <join-column name="dosen_nip" referenced-column-name="nip"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="ruangruang" target-entity="Ruang" fetch="LAZY">
+      <join-columns>
+        <join-column name="ruang_idruang" referenced-column-name="idruang"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,74 @@
+{% extends "admin/master.html.twig"%}
+{% block content%}
+<ol class="breadcrumb">
+  <li><a href="{{path('matakuliah_list')}}">Matakuliah</a></li>
+  <li class="active">Tambah Matakuliah</li>
+</ol>
+  <div class="content-box-large">
+    <div class="panel-heading">
+          <div class="panel-title">Tambah Data Matakuliah</div>
+      </div>
+    <div class="panel-body">
+      <form class="form-horizontal" role="form" action="{{path('matakuliah_tambah')}}" method="post">
+      <div class="col-md-6">
+      {% if errors != null%}
+      <div class="alert alert-danger alert-dismissable fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
+      {% for e in errors%}
+      <strong>Error</strong> {{e.message}}</br>
+      {% endfor %}
+      </div>
+      {% endif %}
+      <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">id Matakuliah</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="idprogramStudi"
+          name="idmatkul" value="{{data.getIdmatkul()}}"
+          placeholder="id prodi">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Nama Matakuliah</label>
+        <div class="col-sm-10">
+          <input type="text" name="namaMatkul" value="{{data.getNamaMatkul()}}"
+          class="form-control" id="inputPassword3" placeholder="Nama Matakuliah">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">sks</label>
+        <div class="col-sm-10">
+          <input type="text" name="sks" value="{{data.getSks()}}"
+          class="form-control" id="kampus" placeholder="sks">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">semester</label>
+        <div class="col-sm-10">
+          <input type="text" name="semester" value="{{data.getSemester()}}"
+          class="form-control" id="kampus" placeholder="semester">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Program Studi</label>
+        <div class="col-sm-10">
+        <select class="selectpicker" name="prodi">
+                  {% for f in prodi %}
+                  <option value="{{f.getIdprogramStudi()}}">
+                   {{f.getNamaProdi()}}
+                   </option>
+                  {% endfor %}
+                  </select>
+        </div>
+      </div>
+      <div class="form-group">
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary">Tambah</button>
+        </div>
+      </div>
+      </div>
+    </form>
+    </div>
+    </div>
+{% endblock%}

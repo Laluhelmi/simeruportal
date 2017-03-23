@@ -1,0 +1,46 @@
+{% extends 'admin/master.html.twig'%}
+{% block content %}
+<ol class="breadcrumb">
+  <li class="active">Ampu Kuliah</li>
+</ol>
+<div class="content-box-large">
+
+{% if hasil != null%}
+<div class="alert alert-info alert-dismissable fade in">
+<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+<strong>{{hasil}}</strong>
+</div>
+{% endif %}
+
+  <div class="panel-heading">
+<a href="{{path('jadwalajar_tambah')}}" type="button" class="btn btn-default">Tambah</a>
+<table class="table">
+    <thead>
+      <tr>
+        <th>Matakuliah</th>
+        <th>Nama Dosen</th>
+        <th>Kelas</th>
+        <th>Jam</th>
+        <th>Hari</th>
+        <th>Ruang</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in isi %}
+      <tr>
+      <td>{{ data.getMatakuliahmatkul().getNamaMatkul() }}</td>
+      <td>{{ data.getDosenNip().getNama()}}</td>
+      <td>{{ data.getKelas()}}</td>
+      <td>{{ data.getJam()}}</td>
+      <td>{{ data.getHari()}}</td>
+      <td>{{ data.getRuangruang().getNamaruang()}}</td>
+      <td><a href='{{path('jadwalajar_hapus',{'akun':data.getIdajar()})}}'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Hapus</a>&nbsp
+          <a href='{{path('jadwalajar_edit',{'id':data.getIdajar()})}}'><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>Edit</a>
+      </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div></div>
+{% endblock%}

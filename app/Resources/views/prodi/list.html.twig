@@ -1,0 +1,35 @@
+{% extends 'admin/master.html.twig'%}
+{% block content %}
+<ol class="breadcrumb">
+  <li class="active">Program Studi</li>
+</ol>
+<div class="content-box-large">
+  <div class="panel-heading">
+<a href="{{path('prodi_tambah')}}" type="button" class="btn btn-default">Tambah</a>
+<table class="table">
+    <thead>
+      <tr>
+        <th>id Program Studi</th>
+        <th>Nama Program Studi</th>
+        <th>Fakultas</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in isi %}
+      <tr>
+      <td>{{ data['idprogram_studi'] }}</td>
+      <td>{{ data['nama_prodi'] }}</td>
+      <td>{{ data['namafakultas'] }}</td>
+
+      <td><a href='{{path('prodi_hapus',{'fk': data['idprogram_studi'] })}}'>
+      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Hapus</a>&nbsp
+          <a href='{{path('prodi_edit',{'pr': data['idprogram_studi']})}}'>
+          <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>Edit</a>
+      </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div></div>
+{% endblock%}

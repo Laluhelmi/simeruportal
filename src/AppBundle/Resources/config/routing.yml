@@ -1,0 +1,4 @@
+app_akun:
+    resource: "@AppBundle/Resources/config/routing/akun.php"
+    prefix:   /akun
+

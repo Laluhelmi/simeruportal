@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Matakuliah" table="matakuliah">
+    <indexes>
+      <index name="fk_matakuliah_program_studi1_idx" columns="program_studi_idprogram_studi"/>
+    </indexes>
+    <id name="idmatkul" type="integer" column="idmatkul">
+    </id>
+    <field name="namaMatkul" type="string" column="nama_matkul" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="sks" type="integer" column="sks" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="semester" type="integer" column="semester" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <many-to-one field="programStudiprogramStudi" target-entity="ProgramStudi" fetch="LAZY">
+      <join-columns>
+        <join-column name="program_studi_idprogram_studi" referenced-column-name="idprogram_studi"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

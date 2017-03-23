@@ -1,0 +1,120 @@
+{% extends "admin/master.html.twig"%}
+{% block content%}
+<ol class="breadcrumb">
+  <li><a href="{{path('jadwalajar')}}">Ampu Kuliah</a></li>
+  <li class="active">Edit Ampu Kuliah</li>
+</ol>
+  <div class="content-box-large">
+
+    <div class="panel-heading">
+          <div class="panel-title">Edit Ampu Kuliah</div>
+      </div>
+    <div class="panel-body">
+
+      <form class="form-horizontal" role="form" action="{{path('jadwalajar_edit',{'id':data.getIdajar()})}}" method="post">
+      <div class="col-md-6">
+      {% if errors != null%}
+      <div class="alert alert-danger alert-dismissable fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
+      {% for e in errors%}
+      <strong>Error</strong> {{e.message}}</br>
+      {% endfor %}
+      </div>
+      {% endif %}
+      <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Pilih Dosen</label>
+        <div class="col-sm-10">
+        <select class="selectpicker" name="dosen">
+                  {% for f in dosen %}
+                  <option {% if(data.getDosenNip().getNip() == f.getNip())%}
+                  selected
+                  {% endif %}
+                  value="{{f.getNip()}}">
+                   {{f.getNama()}}
+                   </option>
+                  {% endfor %}
+        </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Pilih Matakuliah</label>
+        <div class="col-sm-10">
+        <select class="selectpicker" name="matkul">
+                  {% for f in matakuliah %}
+                  <option {% if(data.getMatakuliahmatkul().getIdmatkul() ==  f.getIdmatkul())%}
+                   selected {% endif%}
+                  value="{{f.getIdmatkul()}}">
+                   {{f.getNamaMatkul()}}
+                   </option>
+                  {% endfor %}
+        </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Kelas</label>
+        <div class="col-sm-10">
+        <select class="selectpicker" name="kelas">
+                  <option {% if(data.getKelas ==  "a")%} selected {% endif%}
+                  value="a">A</option>
+                  <option {% if(data.getKelas ==  "b")%} selected {% endif%}
+                  value="b">B</option>
+                  <option {% if(data.getKelas ==  "c")%} selected {% endif%}
+                  value="c">C</option>
+                  <option {% if(data.getKelas ==  "d")%} selected {% endif%}
+                  value="d">D</option>
+        </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Jam</label>
+        <div class="col-sm-10">
+          <input type="text" name="jam" value="{{data.getJam()}}"
+          class="form-control" id="inputPassword3" placeholder="Jam">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Hari</label>
+        <div class="col-sm-10">
+        <select class="selectpicker" name="hari">
+                  <option {% if(data.getHari() ==  "senin")%} selected {% endif%}
+                  value="senin">senin</option>
+                  <option {% if(data.getHari() ==  "selasa")%} selected {% endif%}
+                  value="selasa">selasa</option>
+                  <option {% if(data.getHari() ==  "rabu")%} selected {% endif%}
+                  value="rabu">rabu</option>
+                  <option {% if(data.getHari() ==  "kamis")%} selected {% endif%}
+                  value="kamis">kamis</option>
+                  <option {% if(data.getHari() ==  "jumat")%} selected {% endif%}
+                  value="jumat">jumat</option>
+                  <option {% if(data.getHari() ==  "sabtu")%} selected {% endif%}
+                  value="sabtu">sabtu</option>
+                  <option {% if(data.getHari() ==  "minggu")%} selected {% endif%}
+                  value="minggu">minggu</option>
+        </select>
+        </div>
+      </div>
+      <div class="form-group">
+
+        <label for="inputEmail3" class="col-sm-2 control-label">Pilih Ruang</label>
+        <div class="col-sm-10">
+        <select class="selectpicker" name="ruang">
+                  {% for f in ruang %}
+                  <option value="{{f.getIdruang()}}">
+                   {{f.getNamaruang()}}
+                   </option>
+                  {% endfor %}
+        </select>
+        </div>
+      </div>
+      <div class="form-group">
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary">Tambah</button>
+        </div>
+      </div>
+      </div>
+    </form>
+    </div>
+    </div>
+{% endblock%}

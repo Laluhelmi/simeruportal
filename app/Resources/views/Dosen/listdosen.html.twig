@@ -1,0 +1,30 @@
+{% extends 'admin/master.html.twig'%}
+{% block content %}
+<ol class="breadcrumb">
+  <li class="active">Dosen</li>
+</ol>
+<div class="content-box-large">
+  <div class="panel-heading">
+<a href="{{path('dosen_tambah')}}" type="button" class="btn btn-default">Tambah</a>
+<table class="table">
+    <thead>
+      <tr>
+        <th>Nip</th>
+        <th>Nama</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in isi %}
+      <tr>
+      <td>{{ data.getNip() }}</td>
+      <td>{{ data.getNama() }}</td>
+      <td><a href='{{path('dosen_hapus',{'id':data.getNip()})}}'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Hapus</a>&nbsp
+          <a href='{{path('dosen_edit',{'id':data.getNip()})}}'><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>Edit</a>
+      </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div></div>
+{% endblock%}

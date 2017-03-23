@@ -1,0 +1,38 @@
+{% extends 'admin/master.html.twig'%}
+{% block content %}
+<ol class="breadcrumb">
+  <li class="active">Matakuliah</li>
+</ol>
+<div class="content-box-large">
+  <div class="panel-heading">
+<a href="{{path('matakuliah_tambah')}}" type="button" class="btn btn-default">Tambah</a>
+<table class="table">
+    <thead>
+      <tr>
+        <th>Id MataKuliah</th>
+        <th>Nama Matakuliah</th>
+        <th>Program Studi</th>
+        <th>Sks</th>
+        <th>Semester</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in isi %}
+      <tr>
+      <td>{{ data.idmatkul() }}</td>
+      <td>{{ data.getNamaMatkul() }}</td>
+      <td>{{ data.getProgramStudiprogramStudi().getNamaProdi() }}</td>
+      <td>{{ data.getSks() }}</td>
+      <td>{{ data.getSemester() }}</td>
+      <td><a href='{{path('matakuliah_hapus',{'mk': data.getIdmatkul() })}}'>
+      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Hapus</a>&nbsp
+          <a href='{{path('matakuliah_edit',{'mk': data.getIdmatkul()})}}'>
+          <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>Edit</a>
+      </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div></div>
+{% endblock%}

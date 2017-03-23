@@ -1,0 +1,66 @@
+{% extends 'admin/master.html.twig' %}
+{% block content %}
+{% set jam = ['07.00-07.50', '07.50-08.40', '08.45-09.35', '09.35-10.25', '10.30-11.20'
+            , '11.20-12.10','12.30-13.20','13.20-14.10','14.15-15.05','15.15-16.05','16.10-17.00'
+            , '17.00-17.50','18.30-19.20','19.20-20.10','20.10-21.00'] %}
+{% set data = [{'hari':'senin','jam' : jam },{'hari':'selasa','jam' : jam },
+              {'hari':'rabu','jam' : jam },  {'hari':'kamis','jam' : jam },
+              {'hari':'jumat','jam' : jam },{'hari':'sabtu','jam' : jam },
+              {'hari':'minggu','jam' : jam }] %}
+
+              <ol class="breadcrumb">
+                <li class="active">Dosen</li>
+              </ol>
+              <div class="content-box-large">
+
+<table class="table">
+<thead>
+  <th>Hari</th>
+  <th>Jam</th>
+  <th>Kode</th>
+  <th>Matakuliah</th>
+  <th>Kelas</th>
+  <th>Sks</th>
+  <th>Program Studi</th>
+  <th>Semester</th>
+  <th>Dosen</th>
+</thead>
+<tbody>
+  {% for i in 0..data|length - 1 %}
+      {% for j in 0..jam|length - 1%}
+      <tr>
+        {% if j == 0 %}
+        <td rowspan="{{ jam|length }}">{{data[i].hari}}</td>
+        {% endif %}
+        <td>{{ data[i].jam[j]}}</td>
+        {% set tidakadaisikolom = true %}
+        {% for cek in 0..ruang|length - 1%}
+        {% set ada = false %}
+          {% set pecahruang = ruang[cek].getJam()|split(',') %}
+          {% for u in 0..pecahruang|length -1 %}
+            {% if data[i].hari        == ruang[cek].getHari() and
+                  jam[pecahruang[u]-1]  == jam[j] %}
+                  {% set ada = true %}
+                  {% set tidakadaisikolom = false %}
+            {% endif %}
+          {% endfor %}
+          {% if ada == true %}
+          <td>{{ruang[cek].getIdajar() }}</td>
+          <td>{{ruang[cek].getMatakuliahmatkul.getNamaMatkul() }}</td>
+          <td>{{ruang[cek].getKelas()}}</td>
+          <td>{{ruang[cek].getMatakuliahmatkul().getSks()}}</td>
+          <td>{{ruang[cek].getMatakuliahmatkul().getProgramStudiprogramStudi().getNamaProdi()}}</td>
+          <td>{{ruang[cek].getMatakuliahmatkul().getSemester()}}</td>
+          <td>{{ruang[cek].getDosenNip().getNama() }}</td>
+          {% endif %}
+        {% endfor %}
+        {% if tidakadaisikolom == true %}
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        {% endif %}
+        </tr>
+      {% endfor %}
+  {% endfor %}
+</tbody>
+</table>
+</div>
+{% endblock %}

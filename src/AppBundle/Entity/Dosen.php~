@@ -1,0 +1,68 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Dosen
+ *
+ * @ORM\Table(name="dosen")
+ * @ORM\Entity
+ *
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AkunRepository")
+ */
+class Dosen
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nama", type="string", length=45, nullable=true)
+     */
+    private $nama;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nip", type="string", length=122)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $nip;
+
+
+
+    /**
+     * Set nama
+     *
+     * @param string $nama
+     *
+     * @return Dosen
+     */
+    public function setNama($nama)
+    {
+        $this->nama = $nama;
+
+        return $this;
+    }
+
+    /**
+     * Get nama
+     *
+     * @return string
+     */
+    public function getNama()
+    {
+        return $this->nama;
+    }
+
+    /**
+     * Get nip
+     *
+     * @return string
+     */
+    public function getNip()
+    {
+        return $this->nip;
+    }
+}

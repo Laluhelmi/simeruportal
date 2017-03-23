@@ -1,0 +1,51 @@
+{% extends "admin/master.html.twig"%}
+{% block content%}
+<ol class="breadcrumb">
+  <li><a href="{{path('fakultas_list')}}">Fakultas</a></li>
+  <li class="active">Edit Fakultas</li>
+</ol>
+  <div class="content-box-large">
+
+    <div class="panel-heading">
+          <div class="panel-title">Edit Data Fakultas</div>
+      </div>
+    <div class="panel-body">
+
+      <form class="form-horizontal" role="form" action="{{path('fakultas_edit',{'id': id})}}"
+                method="post">
+      <div class="col-md-6">
+      {% if errors != null%}
+      <div class="alert alert-danger alert-dismissable fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
+      {% for e in errors%}
+      <strong>Error</strong> {{e.message}}</br>
+      {% endfor %}
+      </div>
+      {% endif %}
+      <fieldset disabled>
+      <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Nip</label>
+        <div class="col-sm-10">
+          <input type="text" id="disabledTextInput" value="{{fk.getIdfakultas()}}" class="form-control" placeholder="Disabled input">
+        </div>
+      </div>
+      </fieldset>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Nama</label>
+        <div class="col-sm-10">
+          <input type="text" name="namafakultas" value="{{fk.getNamafakultas()}}"
+          class="form-control" id="inputPassword3" placeholder="Nama">
+        </div>
+      </div>
+      <div class="form-group">
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary">Ubah</button>
+        </div>
+      </div>
+      </div>
+    </form>
+    </div>
+    </div>
+{% endblock%}

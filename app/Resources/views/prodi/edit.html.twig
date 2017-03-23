@@ -1,0 +1,76 @@
+{% extends "admin/master.html.twig"%}
+{% block content%}
+<ol class="breadcrumb">
+  <li><a href="{{path('prodi_list')}}">Program Studi</a></li>
+  <li class="active">Edit Program Studi</li>
+</ol>
+  <div class="content-box-large">
+    <div class="panel-heading">
+          <div class="panel-title">Edit Data Program Studi</div>
+      </div>
+    <div class="panel-body">
+
+      <form class="form-horizontal" role="form" action="{{path('prodi_edit',{pr:id})}}" method="post">
+      <div class="col-md-6">
+      {% if errors != null%}
+      <div class="alert alert-danger alert-dismissable fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
+      {% for e in errors%}
+      <strong>Error</strong> {{e.message}}</br>
+      {% endfor %}
+      </div>
+      {% endif %}
+      <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">id prodi</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="idprogramStudi" name="idprodi" value="{{data.getIdprogramStudi()}}"
+          placeholder="id prodi">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Nama prodi</label>
+        <div class="col-sm-10">
+          <input type="text" name="namaprodi" value="{{data.getNamaprodi()}}"
+          class="form-control" id="inputPassword3" placeholder="Nama prodi">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Kampus</label>
+        <div class="col-sm-10">
+          <input type="text" name="kampus" value="{{data.getKampus()}}"
+          class="form-control" id="kampus" placeholder="kampus">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Fakultas</label>
+        <div class="col-sm-10">
+        <select class="selectpicker" name="fakultas">
+                  {% for f in fakultas %}
+                  {% if selected == f.getNamafakultas() %}
+                  <option selected value="{{f.getIdfakultas()}}">
+                   {{f.getNamafakultas()}}
+
+                   </option>
+                  {% else %}
+                  <option value="{{f.getIdfakultas()}}">
+                   {{f.getNamafakultas()}}
+
+                   </option>
+                  {% endif %}
+
+                  {% endfor %}
+                  </select>
+        </div>
+      </div>
+      <div class="form-group">
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary">Tambah</button>
+        </div>
+      </div>
+      </div>
+    </form>
+    </div>
+    </div>
+{% endblock%}
