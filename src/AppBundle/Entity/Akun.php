@@ -4,15 +4,37 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 /**
  * Akun
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AkunRepository")
  * @ORM\Table(name="akun")
  * @ORM\Entity
  */
-class Akun
+class Akun implements UserInterface, EncoderAwareInterface
 {
+
+      public function getEncoderName()
+     {
+
+         return null; // use the default encoder
+     }
+     public function getSalt()
+     {
+       return null;
+     }
+     public function getUsername()
+     {
+        return null;
+     }
+     public function eraseCredentials()
+     {
+       return null;
+     }
+     public function getRoles(){
+       return null;
+     }
     /**
      * @var string
      *

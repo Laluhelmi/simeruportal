@@ -7,8 +7,13 @@ security:
         in_memory:
             memory:
               users:
-                  pengguna: { password: test }
-                  admin: { password: test }
+                 ryan:
+                        password: ryanpass
+                        roles: 'ROLE_USER'
+                 admin:
+                        password: $2y$12$UxjhUhZ7E2LNhGYZRICmqeii3L3Yp/HhGIARMXDF2RHSRkbZdwuuW
+                        roles: 'ROLE_ADMIN'
+
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -21,12 +26,18 @@ security:
 
         main:
             anonymous: ~
+            form_login:
+                login_path: belajarlagi
+                check_path: belajarlagi
 
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+            cost: 12
+        AppBundle\Entity\Akun : bcrypt
     access_control:
         # require ROLE_ADMIN for /admin*
-        - { path: ^/masuk}
+        - { path: ^/belajarlagi,roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/keluaraja, roles: ROLE_USER }
             # activate different ways to authenticate
 
