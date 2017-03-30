@@ -38,7 +38,7 @@ security:
     access_control:
         # require ROLE_ADMIN for /admin*
         - { path: ^/belajarlagi,roles: IS_AUTHENTICATED_ANONYMOUSLY}
-        - { path: ^/keluaraja, roles: ROLE_USER }
+         - { path: ^/, roles: ROLE_ADMIN }
             # activate different ways to authenticate
 
             # http_basic: ~

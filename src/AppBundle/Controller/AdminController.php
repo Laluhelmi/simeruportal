@@ -109,7 +109,7 @@ class AdminController extends Controller
          */
       public function belajarlagi(Request $Request)
       {
-                    $authenticationUtils = $this->get('security.authentication_utils');
+               $authenticationUtils = $this->get('security.authentication_utils');
                // get the login error if there is one
                $error = $authenticationUtils->getLastAuthenticationError();
                // last username entered by the user
