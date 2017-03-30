@@ -123,15 +123,8 @@ class AdminController extends Controller
      *@Route("/enkripsi",name="enkripsi")
      **/
      public function enkripsi(){
-       $akun = new Akun();
-       $plainPassword = "inicontoh";
-       $contoh = '$2y$13$zCgCqWJw94Y837tvHiVqluZpTEB9LiSetrlgjo55VpunnU6MujFtC';
-       $cek = "$2y$13$2A.ak16FvtR0jCe9m6wbNujixwbkdWJU2UnWhDAj1VpBAlzbcXPs6";
-       $encoder = $this->container->get('security.password_encoder');
-       $akun->setPassword($contoh);
-       $encoded = $encoder->encodePassword($akun, $plainPassword);
-       $tes = $encoder->isPasswordValid($t[0],$plainPassword);
-       return new Response(var_dump($t));
+       $data = $this->getDoctrine()->getRepository("AppBundle:Akun")->findAll();
+       return new Response($data[0]->getLevel());
      }
         /**
         *@Method({"GET"})

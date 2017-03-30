@@ -15,5 +15,10 @@
         <option name="fixed"/>
       </options>
     </field>
+    <field name="level" type="string" column="level" length="222" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
   </entity>
 </doctrine-mapping>

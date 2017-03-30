@@ -12,9 +12,24 @@ use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
  * @ORM\Table(name="akun")
  * @ORM\Entity
  */
-class Akun implements UserInterface, EncoderAwareInterface
+class Akun implements UserInterface, EncoderAwareInterface,\Serializable
 {
 
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="password", type="string", length=222, nullable=false)
+   */
+    private $level;
+    public function setLevel($level)
+    {
+      $this->level = $level;
+      return $this;
+    }
+    public function getLevel()
+    {
+      return $this->level;
+    }
       public function getEncoderName()
      {
 
@@ -28,12 +43,36 @@ class Akun implements UserInterface, EncoderAwareInterface
      {
         return null;
      }
+     /** @see \Serializable::serialize() */
+     public function serialize()
+     {
+      return serialize(array(
+          $this->id,
+          $this->nama,
+          $this->level,
+          $this->password,
+          // see section on salt below
+          // $this->salt,
+      ));
+    }
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->nama,
+            $this->level,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized);
+    }
      public function eraseCredentials()
      {
        return null;
      }
      public function getRoles(){
-       return null;
+       return array('ROLE_ADMIN','ROLE_USER');
      }
     /**
      * @var string
