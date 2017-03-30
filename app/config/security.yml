@@ -28,6 +28,7 @@ security:
             anonymous: ~
             form_login:
                 login_path: belajarlagi
+                target_path_parameter: login
                 check_path: belajarlagi
 
     encoders:
@@ -38,7 +39,7 @@ security:
     access_control:
         # require ROLE_ADMIN for /admin*
         - { path: ^/belajarlagi,roles: IS_AUTHENTICATED_ANONYMOUSLY}
-         - { path: ^/, roles: ROLE_ADMIN }
+        - { path: ^/          , roles: ROLE_ADMIN }
             # activate different ways to authenticate
 
             # http_basic: ~
